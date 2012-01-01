@@ -1,0 +1,7 @@
+parameters:
+#    penfold_google_geolocation.example.class: Penfold\GoogleGeolocationBundle\Example
+
+services:
+#    penfold_google_geolocation.example:
+#        class: %penfold_google_geolocation.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
