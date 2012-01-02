@@ -1,6 +1,6 @@
 <?php
 
-namespace Penfold\GoogleGeolocationBundle;
+namespace Penfold\Bundle\GoogleGeolocationBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

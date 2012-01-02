@@ -1,6 +1,6 @@
 <?php
 
-namespace Penfold\GoogleGeolocationBundle\DependencyInjection;
+namespace Penfold\Bundle\GoogleGeolocationBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Penfold\GoogleGeolocationBundle\DependencyInjection;
+namespace Penfold\Bundle\GoogleGeolocationBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
