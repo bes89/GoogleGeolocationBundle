@@ -1,0 +1,7 @@
+<?php
+
+namespace Penfold\Bundle\GoogleGeolocationBundle\Geolocation;
+
+class Google
+{
+

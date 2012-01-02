@@ -1,7 +1,9 @@
 parameters:
-#    penfold_google_geolocation.example.class: Penfold\GoogleGeolocationBundle\Example
+    penfold_geolocation.class:         Penfold\Bundle\GoogleGeolocationBundle\Geolocation\Google
+    penfold_geolocation.url:           https://maps.googleapis.com/maps/api/geocode
+    penfold_geolocation.format: json
 
 services:
-#    penfold_google_geolocation.example:
-#        class: %penfold_google_geolocation.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    penfold_geolocation:
+        class:     %penfold_geolocation.class%
+        arguments: [%penfold_geolocation.url%, %penfold_geolocation.format%]
