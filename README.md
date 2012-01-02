@@ -1,15 +1,16 @@
-== Symfony2 Instalation ==
+Symfony2 Instalation
+====================
 
-=== deps ===
+deps
+----
+    [PenfoldGoogleGeolocationBundle]
+        git=git://github.com/penfold45/GoogleGeolocationBundle.git
+        target=/bundles/Penfold/Bundle/GoogleGeolocationBundle
 
-  [PenfoldGoogleGeolocationBundle]
-      git=git://github.com/penfold45/GoogleGeolocationBundle.git
-      target=/bundles/Penfold/Bundle/GoogleGeolocationBundle
-
-=== app/autoload.php ===
-
+app/autoload.php
+----------------
     'Penfold'          => __DIR__.'/../vendor/bundles',
 
-=== app/AppKernel.php ===
-
+app/AppKernel.php
+-----------------
     new Penfold\GoogleGeolocationBundle\PenfoldGoogleGeolocationBundle(),
