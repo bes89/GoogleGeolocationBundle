@@ -4,10 +4,15 @@ namespace Penfold\Bundle\GoogleGeolocationBundle\Geolocation;
 
 class Google
 {
+
+  const JSON = 'json';
+  const XML  = 'xml';
+
   private $url;
   private $format;
 
   private $address;
+  private $raw_result;
 
   /*
    *
@@ -15,7 +20,8 @@ class Google
   public function __construct($url, $format)
   {
     $this->url = $url;
-    $this->format = $format;
+
+    $this->setFormat($format);
   }
 
   /*
@@ -29,9 +35,29 @@ class Google
   /*
    *
    */
+  public function getRawResult()
+  {
+    return $this->raw_result;
+  }
+
+  /*
+   *
+   */
   public function getFormat()
   {
     return $this->format;
+  }
+
+  /*
+   *
+   */
+  public function setFormat($format)
+  {
+    if($format != self::JSON && $format != self::XML)
+    {
+      throw new \Exception('Unknown return format: ' . $format);
+    }
+    $this->format = $format;
   }
 
   /*
@@ -53,6 +79,14 @@ class Google
   /*
    *
    */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+
+  /*
+   *
+   */
   public function getResults()
   {
     $this->execute();
@@ -62,9 +96,26 @@ class Google
   /*
    *
    */
+  public function getFirstResult()
+  {
+    $results = $this->getResults();
+    return $results[0];
+  }
+
+  /*
+   *
+   */
+  public function getNumberOfResults()
+  {
+    return count($this->results);
+  }
+
+  /*
+   *
+   */
   public function getRequestUrl()
   {
-    return $this->getUrl() . $this->getFormat() . '?' . $this->getAddress() . '/&sensor=false';
+    return $this->getUrl() . '/' . $this->getFormat() . '?address=' . urlencode($this->getAddress()) . '&sensor=false';
   }
 
   /*
@@ -74,9 +125,6 @@ class Google
   {
     $curl = curl_init();
 
-    var_dump($this->getRequestUrl());
-    die();
-
     curl_setopt($curl, CURLOPT_URL, $this->getRequestUrl());
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -85,7 +133,35 @@ class Google
 
     curl_setopt($curl, CURLOPT_POST, false);
 
-    $result = curl_exec($curl);
+    $this->raw_result = curl_exec($curl);
+    $this->handleResult();
+  }
 
+  /*
+   *
+   */
+  private function handleResult()
+  {
+    $results = null;
+    if($this->getFormat() == self::JSON)
+    {
+      $json = json_decode($this->getRawResult(), true);
+      foreach ($json['results'] as $result)
+      {
+	$result_object = new GoogleResult();
+	$result_object->setData($result);
+	$results[] = $result_object;
+      }
+    }
+    elseif($this->getFormat() == self::XML)
+    {
+      // @TODO not currently umplimented
+    }
+    else
+    {
+      throw new \Exception ('could not hanlde geloacation result unknown response format: ' . $this->getFormat());
+    }
+
+    $this->setResults($results);
   }
 }
