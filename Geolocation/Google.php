@@ -156,10 +156,11 @@ class Google
     elseif($this->getFormat() == self::XML)
     {
       // @TODO not currently umplimented
+      throw new \Exception('Could not handle geloacation result: requested format "'.self::XML.'" is not umplimented yet');
     }
     else
     {
-      throw new \Exception ('could not hanlde geloacation result unknown response format: ' . $this->getFormat());
+      throw new \InvalidArgumentException('Could not handle geloacation result: requested unknown format: ' . $this->getFormat());
     }
 
     $this->setResults($results);
